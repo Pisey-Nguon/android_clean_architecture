@@ -1,7 +1,7 @@
 package com.pisey.cleanarchitecture.data.model
 
-import com.pisey.cleanarchitecture.data.remote.dto.PostDto
+import com.pisey.cleanarchitecture.domain.model.Post
 
 data class PostResponse(
-    val posts: List<PostDto>
+    val posts: List<Post>
 )

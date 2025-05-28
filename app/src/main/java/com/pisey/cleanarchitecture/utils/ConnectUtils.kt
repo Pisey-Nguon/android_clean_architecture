@@ -10,7 +10,7 @@ object ConnectUtils {
         val networkCapabilities = cm.getNetworkCapabilities(cm.activeNetwork)
         return networkCapabilities != null &&
                 (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                 networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                 networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
     }
 }

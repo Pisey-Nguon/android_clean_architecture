@@ -1,7 +1,7 @@
 package com.pisey.cleanarchitecture.data.model
 
-import com.pisey.cleanarchitecture.data.remote.dto.UserDto
+import com.pisey.cleanarchitecture.domain.model.User
 
 data class UserResponse(
-    val users: List<UserDto>
+    val users: List<User>
 )

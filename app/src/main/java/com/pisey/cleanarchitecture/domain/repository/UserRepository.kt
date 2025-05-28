@@ -1,8 +1,7 @@
 package com.pisey.cleanarchitecture.domain.repository
 
-import com.pisey.cleanarchitecture.core.CustomResult
-import com.pisey.cleanarchitecture.domain.model.User
+import com.pisey.cleanarchitecture.data.model.UserResponse
 
 interface UserRepository {
-    suspend fun getUsers(): CustomResult<List<User>>
+    suspend fun getUsers(): UserResponse
 }

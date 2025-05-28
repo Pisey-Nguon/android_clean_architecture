@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.pisey.cleanarchitecture.core.CustomResult
 import com.pisey.cleanarchitecture.databinding.ActivityUserBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,6 +16,7 @@ class UserActivity : AppCompatActivity() {
             context.startActivity(Intent(context, UserActivity::class.java))
         }
     }
+
     private lateinit var binding: ActivityUserBinding
     private val viewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +24,13 @@ class UserActivity : AppCompatActivity() {
         binding = ActivityUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.users.observe(this) { users ->
-            binding.textView.text = users.joinToString("\n") { it.firstName }
+        viewModel.mutableUserLiveData.observe(this) { result ->
+            when(result){
+                is CustomResult.Error -> binding.textView.text = result.error.message ?: "An error occurred"
+                is CustomResult.Success -> {
+                    binding.textView.text = result.data.users.joinToString("\n") { it.firstName }
+                }
+            }
         }
     }
 
