@@ -16,4 +16,7 @@ interface PostDao {
 
     @Query("DELETE FROM posts")
     suspend fun clearPosts()
+
+    @Query("SELECT * FROM posts WHERE id = :postId")
+    suspend fun getPostById(postId: Int): PostEntity?
 }
