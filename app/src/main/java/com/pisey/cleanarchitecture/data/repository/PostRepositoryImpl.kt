@@ -1,7 +1,6 @@
 package com.pisey.cleanarchitecture.data.repository
 
 import android.content.Context
-import com.pisey.cleanarchitecture.core.CustomResult
 import com.pisey.cleanarchitecture.data.local.dao.PostDao
 import com.pisey.cleanarchitecture.data.local.entity.PostEntity
 import com.pisey.cleanarchitecture.data.model.PostResponse
@@ -16,7 +15,7 @@ class PostRepositoryImpl(
     private val context: Context
 ) : PostRepository {
 
-    override suspend fun getPosts(): CustomResult<PostResponse> {
+    override suspend fun getPosts(): PostResponse {
         return if (ConnectUtils.isConnected(context)) {
             val postsFromApi = apiService.getPosts()
             val entities = postsFromApi.posts.map { PostEntity(it.id, it.title, it.body) }
@@ -24,10 +23,10 @@ class PostRepositoryImpl(
             postDao.clearPosts()
             postDao.insertPosts(entities)
 
-            CustomResult.Success(postsFromApi)
+            postsFromApi
         } else {
             val list = postDao.getPosts()?.map { Post(it.id, it.title, it.body) } ?: emptyList()
-            CustomResult.Success(PostResponse(posts = list))
+            PostResponse(posts = list)
         }
     }
 
