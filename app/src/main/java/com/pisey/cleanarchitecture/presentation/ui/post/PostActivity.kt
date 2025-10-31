@@ -12,8 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PostActivity : AppCompatActivity() {
     companion object {
-        fun start(context: Context) {
-            context.startActivity(Intent(context, PostActivity::class.java))
+        fun createIntent(context: Context): Intent {
+            return Intent(context, PostActivity::class.java)
         }
     }
 
@@ -33,6 +33,13 @@ class PostActivity : AppCompatActivity() {
                     binding.tvPosts.text = result.data.posts.joinToString("\n") { it.title }
                 }
             }
+        }
+
+        // For demonstration, add a button to finish with a result
+        binding.root.setOnClickListener {
+            val data = Intent().apply { putExtra("post_result", "Some result from PostActivity") }
+            setResult(RESULT_OK, data)
+            finish()
         }
     }
 
